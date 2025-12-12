@@ -1,23 +1,110 @@
-Upload Images & Videos to Cloudinary • Store URLs in Database • Supports Large Files • Clean Architecture
+# 🌤️ Spring Boot + Cloudinary Media Upload API
 
-<p align="center"> <img src="https://img.shields.io/badge/Java-17-blue?logo=java" /> <img src="https://img.shields.io/badge/Spring_Boot-3.x-brightgreen?logo=springboot" /> <img src="https://img.shields.io/badge/Cloudinary-Enabled-blue?logo=cloudinary" /> <img src="https://img.shields.io/badge/Maven-Build-orange?logo=apachemaven" /> <img src="https://img.shields.io/badge/Status-Active-success" /> </p>
-📝 Overview
+A simple Spring Boot API to upload **Images** and **Videos** to Cloudinary and store file URLs in the database.
 
-This project is a Spring Boot REST API that enables uploading images and videos to Cloudinary, automatically organizing them in folders and storing the secure URL in a database.
+---
 
-✨ Core Features
-📁 Media Upload Support
+## ✨ Features
 
-Upload Images → stored in /images folder
-Upload Videos → stored in /videos folder
+- 📸 Upload Images → stored in **/images** folder  
+- 🎥 Upload Videos → stored in **/videos** folder  
+- 📁 Store URLs in database  
+- 🧾 Add product with image  
+- 🧪 Easy API testing with Postman  
 
-🔧 Configuration (application.properties)
+---
+
+## ⚙️ Configuration (`application.properties`)
+
 cloudinary.cloud_name=your_cloud_name
 cloudinary.api_key=your_api_key
 cloudinary.api_secret=your_api_secret
 
-# Upload size limits
-spring.servlet.multipart.max-file-size=100MB
-spring.servlet.multipart.max-request-size=100MB
+spring.servlet.multipart.max-file-size=500MB
+spring.servlet.multipart.max-request-size=500MB
+
+yaml
+Copy code
+
+---
+
+## 📸 Image Upload Code
+
+```java
+Map upload = cloudinary.uploader().upload(
+        file.getBytes(),
+        ObjectUtils.asMap("folder", "images")
+);
+String imageUrl = upload.get("secure_url").toString();
+🎥 Video Upload (Large File Support)
+java
+Copy code
+Map upload = cloudinary.uploader().uploadLarge(
+        file.getBytes(),
+        ObjectUtils.asMap(
+            "resource_type", "video",
+            "folder", "videos",
+            "chunk_size", 6000000
+        )
+);
+String videoUrl = upload.get("secure_url").toString();
+📡 API Endpoints
+➕ Add Product (Image + JSON)
+POST /product
+Content-Type: multipart/form-data
+
+Key	Type	Example
+file	File	image.jpg
+product	Text	{"productName":"Phone","category":"Mobile","price":45000}
+
+🎥 Upload Video
+POST /uploadVideo
+
+Key	Type
+file	Video (.mp4)
+
+▶️ Run Project
+arduino
+Copy code
+mvn spring-boot:run
+👨‍💻 Author
+Anuj Kumar Prajapati
+Java | Spring Boot | Cloud | Backend Developer
+
+yaml
+Copy code
+
+---
+
+# 🎉 WHAT CHANGED?
+
+### ✔ Clean heading spacing  
+### ✔ Proper line breaks  
+### ✔ Code blocks fixed  
+### ✔ Emoji spacing corrected  
+### ✔ No clutter  
+### ✔ Perfect GitHub rendering  
+### ✔ Easy to read and understand  
+
+---
+
+# 🔥 If you want, I can also generate:
+
+✅ Attractive README with banners  
+✅ README with screenshots  
+✅ README with collapsible sections  
+✅ README with API documentation tables  
+✅ README with badges  
+
+Just tell me!
+
+
+
+
+
+
+
+
+
 
 
